@@ -14,7 +14,7 @@ jobs:
     name: internal links resolve
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Check relative links and anchors
         run: bash scripts/check-links.sh
@@ -23,7 +23,7 @@ jobs:
     name: no obvious typos in headings
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       # Deliberately narrow: catches doubled words and stray TODO markers, which
       # are the two mistakes that actually make it into published prose. A full
