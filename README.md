@@ -1,11 +1,17 @@
 # AI Engineering Playbook
 
-**How I build and run engineering organizations that ship AI products.**
+**How I build AI systems that hold up in production — and run the teams that ship
+them.**
 
-This is my working playbook — the positions I hold, the org structures I use,
-the interview loops I run, and the operational bar I set for teams building on
-LLMs. It is opinionated on purpose. Where I have changed my mind, I say so and
-explain what changed it.
+This is my working playbook — the architectural positions I hold, the quality bar
+I set, the way I structure teams, and the interview loops I run. It is opinionated
+on purpose. Where I have changed my mind, I say so and explain what changed it.
+
+**Scope, stated up front.** I have led a 10-engineer team building AI features,
+and I am hands-on: the architecture and evaluation chapters come from systems I
+have built and operated myself. Sections about larger organizations are reasoned
+positions rather than lived ones, and they are labelled that way where they
+appear. A playbook that blurs those two is not much use to anyone reading it.
 
 It is public for three reasons: writing a position down is how I find out
 whether I actually hold it, colleagues have asked for these documents often
@@ -19,7 +25,13 @@ a leadership role, you should be able to read how I think before we meet.
 If you read one page, read **[Positions](01-positions.md)** — ten claims I am
 prepared to defend, each linking to the chapter that argues it properly.
 
-A few of them, in short:
+If you are evaluating me and have twenty minutes, the path I would suggest is
+**[Positions](01-positions.md) → [Architecture](05-architecture.md) →
+[the case study](case-studies/01-deterministic-retrieval.md)**. That is the
+through-line: a position, the reasoning behind it, and a production system where
+it was load-bearing — including what I would do differently.
+
+A few of the claims, in short:
 
 > **The model is the fallback, not the front door.** Every answer you can
 > produce deterministically is cheaper, faster, more correct, and vastly easier
