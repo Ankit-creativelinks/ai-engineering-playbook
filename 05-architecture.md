@@ -52,7 +52,7 @@ encounter:
 
 | The user is doing | Correct mechanism | Wrong mechanism costs you |
 |---|---|---|
-| Naming a specific entity ("Veer Sagar", invoice 4471) | Normalized key match on an index | Money, latency, staleness, and confidently wrong neighbours |
+| Naming a specific entity (a person's name, invoice 4471) | Normalized key match on an index | Money, latency, staleness, and confidently wrong neighbours |
 | Filtering on attributes ("active, in Delhi") | A `WHERE` clause | Same, plus you cannot express the filter precisely |
 | Asking an open question ("what do these texts say about X") | Embeddings, genuinely | — |
 | Asking for a computation | Code, called as a tool | Arithmetic that is wrong in a way nobody notices |

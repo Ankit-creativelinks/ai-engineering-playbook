@@ -1,21 +1,24 @@
 # Case study: deterministic retrieval before inference
 
+**Organization:** &lt;Confidential&gt;
+
 A production conversational assistant over ~3,200 biographical records, in two
 scripts, where the highest-value engineering decision was choosing **not** to use
 embeddings for the primary retrieval path.
 
-<!-- FILL: name the system and link it if you are comfortable doing so. A named, visitable production system is significantly more credible than an anonymous one. -->
+Domain specifics are generalized and the organization is unnamed. The
+architecture, the trade-offs, and the numbers are as they were.
 
 ---
 
 ## Context
 
-A public reference site holds around 3,200 biographical records of Jain monastic
-figures, maintained as structured content with roughly forty metadata fields per
-record plus several taxonomies. Visitors wanted to ask a natural-language
-question — most commonly, where a particular figure is staying for the annual
-Chaturmas retreat — and get a direct answer instead of navigating a listing
-interface.
+A public reference platform holds around 3,200 biographical records of notable
+figures in a specialist religious domain, maintained as structured content with
+roughly forty metadata fields per record plus several taxonomies. Visitors wanted
+to ask a natural-language question — most commonly, where a particular figure is
+currently residing during an annual seasonal relocation — and get a direct answer
+instead of navigating a listing interface.
 
 Three constraints shaped everything:
 
@@ -73,11 +76,11 @@ The matching key is built by the same function on both sides — once when the
 cache is populated, once per incoming query — which is what makes the match
 robust rather than coincidental. It:
 
-- **Strips rank and honorific tokens in both scripts** (Muni, Acharya, Aryika,
-  Kshullak, Ganini, Shri, Maharaj, Mataji and their Devanagari equivalents,
-  including common spelling variants).
-- **Strips numeric tokens** in both Western and Devanagari digits — the 108/105
-  rank numerals appear only in the prefix, never inside a name.
+- **Strips rank and honorific tokens in both scripts** — roughly a dozen titles,
+  each with a Latin transliteration, a Devanagari form, and several common
+  spelling variants of both.
+- **Strips numeric tokens** in both Western and Devanagari digits. The domain uses
+  numeric rank prefixes, and they appear only ahead of the name, never inside it.
 - **Deliberately does not strip the "ji" honorific suffix**, because it appears
   both fused ("Sagarji") and separate ("Sagar Ji"). Collapsing whitespace
   normalizes both forms anyway, and stripping it as a token would have broken the
@@ -88,13 +91,13 @@ bug before it was a design decision.
 
 ### Window matching
 
-The name can appear anywhere in a sentence — *"chaturmas location for Veer
-Sagar"* — so the normalized message is tokenized and **every contiguous word
-window** is tested against every stored key, using a prefix rule.
+The name can appear anywhere in a sentence — *"current location for [name]"* — so
+the normalized message is tokenized and **every contiguous word window** is tested
+against every stored key, using a prefix rule.
 
 Two properties fall out of this that a substring search would not give:
 
-- Partial names match ("Veer Sagar" → the full stored key).
+- Partial names match (a two-word fragment resolves to the full stored key).
 - Compound names do *not* produce false positives, because windows are whole-word.
   A bare query for one name will not match a different, longer name that happens
   to contain it as a substring.
