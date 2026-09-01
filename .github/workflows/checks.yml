@@ -1,0 +1,45 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  links:
+    name: internal links resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check relative links and anchors
+        run: bash scripts/check-links.sh
+
+  spelling:
+    name: no obvious typos in headings
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Deliberately narrow: catches doubled words and stray TODO markers, which
+      # are the two mistakes that actually make it into published prose. A full
+      # spellchecker on opinionated technical writing is mostly false positives.
+      - name: Check for doubled words
+        run: |
+          if grep -rEn --include='*.md' '\b([a-zA-Z]+) \1\b' . ; then
+            echo "::error::doubled word found"
+            exit 1
+          fi
+          echo "no doubled words"
+
+      - name: Check for unresolved TODO markers
+        run: |
+          if grep -rn --include='*.md' -E 'TODO|FIXME|XXX' . ; then
+            echo "::error::unresolved marker found — resolve it or convert it to a FILL comment"
+            exit 1
+          fi
+          echo "no unresolved markers"
