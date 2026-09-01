@@ -76,8 +76,44 @@ needed something completely different.
 
 ## Sizing, and what I fund first
 
-For an organization of roughly 100–150 engineers, with AI a significant but not
-exclusive part of the product:
+> **What I have run, and what I am reasoning about.** I have managed a 10-engineer
+> team (organization confidential) shipping AI features into a product serving
+> around 10,000 users. That is the band I can speak to from experience, and it is
+> the band the section immediately below describes. The larger sizings that follow
+> are reasoned positions rather than lived ones — I have marked them as such,
+> because a playbook that blurs the two is not much use to anyone reading it.
+
+### At 10–20 engineers — the band I have operated in
+
+No AI platform team. At this size a platform team is one or two people building
+abstractions for three or four consumers they sit next to, and the coordination
+cost exceeds the duplication it removes.
+
+What works instead:
+
+- **The guild.** The two or three people doing AI work meet weekly, share what
+  broke, and keep a shared utilities repo nobody is formally on the hook to
+  support. Cheap, and it produces the design knowledge you need before you can
+  design a platform properly.
+- **One person owns evaluation** as an explicit, named responsibility — not a
+  team, a person, with it written into their scope. This is the single highest
+  leverage allocation at this size, and the one most often left implicit until
+  something goes wrong.
+- **Buy, don't build, everything that is not the product.** Gateway, tracing, eval
+  runner, vector store. At this headcount, engineering time is the binding
+  constraint on absolutely everything.
+- **Nobody is full-time on AI.** Expect it to be a portion of several people's
+  roles, and staff the eval work accordingly rather than assuming it happens.
+
+The mistake I would warn against at this size is copying the structure of a much
+larger organization because it looks legitimate. Ten engineers with a "platform
+team" have a naming convention, not an architecture.
+
+### At 100–150 engineers — reasoned, not lived
+
+*The sizing I would propose at this scale, and the reasoning behind it. I have
+not run an organization this size; I would want to pressure-test these numbers
+against someone who has.*
 
 - **AI platform: 5–8 engineers.** Below five it cannot both build and support.
   Above eight at this scale, it starts inventing work.
@@ -94,7 +130,18 @@ exclusive part of the product:
   reason an AI roadmap stalls has nothing to do with models. It is that the data
   the feature needs is not accessible, not clean, or not legally usable.
 
-<!-- FILL: replace these numbers with org sizes you have actually run. Specific figures you can defend from experience are far stronger than my defaults, and an interviewer will ask. -->
+### What I would want to verify before trusting the above
+
+Stating the open questions is more honest than stating the numbers alone, and
+these are the ones I would put to someone who has run an org at this scale:
+
+- Does the 5–8 platform floor hold, or does on-call and support push the real
+  floor higher?
+- Does the "platform team owns no user-facing feature" rule survive contact with
+  a company where the platform team has the deepest model expertise and product
+  is impatient?
+- At what headcount does the embedded model start to fragment quality standards
+  faster than a guild can hold them together?
 
 ## The roles people conflate
 
