@@ -78,7 +78,7 @@ needed something completely different.
 
 > **What I have run, and what I am reasoning about.** I have managed a 10-engineer
 > team (organization confidential) shipping AI features into a product serving
-> around 10,000 users. That is the band I can speak to from experience, and it is
+> around 5,000 users. That is the band I can speak to from experience, and it is
 > the band the section immediately below describes. The larger sizings that follow
 > are reasoned positions rather than lived ones — I have marked them as such,
 > because a playbook that blurs the two is not much use to anyone reading it.
